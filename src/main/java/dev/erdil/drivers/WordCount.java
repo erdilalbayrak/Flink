@@ -1,11 +1,8 @@
 package dev.erdil.drivers;
 
-import dev.erdil.helpers.DataSetHelpers;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
-import org.apache.flink.api.java.functions.KeySelector;
-import org.apache.flink.api.java.operators.AggregateOperator;
 import org.apache.flink.api.java.operators.MapOperator;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.utils.ParameterTool;
@@ -22,11 +19,11 @@ public class WordCount {
 
         DataSet<String> texts = env.readTextFile("resources/wc.txt");
 
-        //texts.print();
+        printDatasetInfo(texts, 5);
 
         DataSet<String> filteredTexts = texts.filter(value -> value.startsWith("N"));
 
-        //filteredTexts.print();
+        printDatasetInfo(filteredTexts, 5);
 
         MapOperator<String, Tuple2<String, Integer>> tokenizedTexts = filteredTexts.map(new MapFunction<String, Tuple2<String, Integer>>() {
             @Override

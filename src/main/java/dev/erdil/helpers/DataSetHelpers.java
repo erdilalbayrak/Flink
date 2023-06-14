@@ -7,7 +7,8 @@ public class DataSetHelpers {
     public static void printDatasetInfo(final DataSet<String> dataset, final int first) {
         try {
             System.out.printf("ItemCount: %d\n", dataset.count());
-            System.out.printf("First %d items: %s", first, dataset.iterate(first).collect());
+            System.out.printf("First %d items:", first);
+            dataset.first(first).print();
         } catch (Exception e) {
             throw new RuntimeException("Error occurred during handling the dataset.", e);
         }
